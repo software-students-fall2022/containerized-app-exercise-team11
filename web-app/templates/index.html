@@ -1,1 +1,33 @@
-Last Translated Message: (last translated message will go here)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translator</title>
+    
+    <script>
+        function getTranslation() {
+            fetch('/translation')
+                .then((response) => {
+                    // Get most recent translation information.
+                    return response.json();
+                })
+                .then((translation) => {
+                    // Put most recent translation information into "lastmessage" element.
+                    let translationContainer = document.getElementById("lastmessage");
+                    translationContainer.innerHTML = translation["outputText"];
+                });
+        }
+    
+        // Get data on page load.
+        getTranslation();
+    
+        // Update data every second.
+        setInterval(getTranslation, 1000);
+    </script>
+</head>
+<body>
+    <span id="lastmessage"></span>
+</body>
+</html>
