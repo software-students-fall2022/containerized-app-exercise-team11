@@ -1,3 +1,5 @@
+from flaskr import create_app
+
 class Tests:
     def test(self):
-        assert True
+        create_app()
