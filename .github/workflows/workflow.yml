@@ -39,7 +39,6 @@ jobs:
       - name: running test file with coverage
         run: |
             cd .\web-app
-        #\venv\bin\activate
             coverage run -m ./tests/*.py
             coverage report           
 
