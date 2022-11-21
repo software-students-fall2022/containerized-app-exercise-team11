@@ -1,0 +1,27 @@
+[
+    {
+        "inputLanguage": "de",
+        "inputText": "Guten tag.",
+        "outputText": "Good morning."
+    },
+    {
+        "inputLanguage": "es",
+        "inputText": "Mucho gusto.",
+        "outputText": "Nice to meet you."
+    },
+    {
+        "inputLanguage": "fr",
+        "inputText": "Pardon, excusez-moi.",
+        "outputText": "Pardon, excuse me."
+    },
+    {
+        "inputLanguage": "ja",
+        "inputText": "ごめんなさい。",
+        "outputText": "I am sorry."
+    },
+    {
+        "inputLanguage": "zh",
+        "inputText": "不用谢。",
+        "outputText": "You're welcome."
+    }
+]
