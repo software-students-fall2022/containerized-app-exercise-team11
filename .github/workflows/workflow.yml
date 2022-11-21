@@ -1,0 +1,56 @@
+name: containeried-app-translation
+run-name: ${{ github.actor }}'s Pull Request Triggered this Workflow
+on: [pull_request]
+
+jobs:
+  the_first_test:
+    name: 
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.11"]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: setting up one of two recent python versions (3.8 or 3.11)
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: updating pip, requirements, pytest
+        run: | 
+            python -m pip install --upgrade pip
+            pip install pytest
+      - name: Turning 'editable' mode on
+        run: |
+            pip install -e .
+            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi 
+        
+      #- name: creating pytest directory
+      #  run: mkdir -p tests/test_results/
+
+      #Running commands
+      #cd .\web-app
+      #.\venv\bin\activate # activate the environment assuming it exists
+      #coverage run -m .\tests\*.py
+      #coverage report
+        
+      - name: running test file with coverage
+        run: |
+            cd .\web-app
+        #\venv\bin\activate
+            coverage run -m ./tests/*.py
+            coverage report           
+
+      - name: running test with pytest
+        run: |
+            python3 -m pytest ./tests/*.py
+    
+      #- name: upload pytest results
+      # uses: actions/upload-artifact@v3
+      #  with:
+      #    name: pytest results of the run
+      #    path: ./.github/test_results/test-results.xml
+      #  if: ${{ always() }}
+
