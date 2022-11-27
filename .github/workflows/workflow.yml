@@ -8,7 +8,7 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        python-version: ["3.8", "3.8", "3.10"]
+        python-version: ["3.8", "3.9", "3.10"]
 
     steps:
       - uses: actions/checkout@v3
@@ -21,8 +21,9 @@ jobs:
         run: | 
             python3 -m pip install --upgrade pip
             pip install pytest
-            pip install pylint
             if [ -f ./web-app/requirements.txt ]; then pip install -r ./web-app/requirements.txt; fi 
+            
+      #pip install pylint
             
       #Running commands
       #cd .\web-app
@@ -41,7 +42,7 @@ jobs:
             cd ./web-app
             python3 -m pytest ./tests/*.py
     
-      - name: linting file
-        run: |
-            python3 -m pylint $(git ls-files '*.py')
+      #- name: linting file
+      #  run: |
+      #      python3 -m pylint $(git ls-files '*.py')
 
