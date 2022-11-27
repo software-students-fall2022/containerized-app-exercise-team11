@@ -21,6 +21,7 @@ jobs:
         run: | 
             python3 -m pip install --upgrade pip
             pip install pytest
+            pip install pylint
       - name: Turning 'editable' mode on
         run: |
             pip install -e .
@@ -42,4 +43,7 @@ jobs:
         run: |
             python3 -m pytest ./tests/*.py
     
+      - name: linting file
+        run: |
+            pylint $(git ls-files '*.py')
 
