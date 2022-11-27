@@ -32,13 +32,12 @@ jobs:
         
       - name: running test file with coverage
         run: |
-            cd ./web-app
-            python3 -m coverage run ./tests/*.py
+            python3 -m coverage run ./web-app/tests/*.py
             python3 -m coverage report           
 
       - name: running test with pytest
         run: |
-            python3 -m pytest ./tests/*.py
+            python3 -m pytest ./web-app/tests/*.py
     
       - name: linting file
         run: |
