@@ -22,7 +22,7 @@ jobs:
             python3 -m pip install --upgrade pip
             pip install pytest
             pip install pylint
-            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi 
+            if [ -f ./web-app/requirements.txt ]; then pip install -r ./web-app/requirements.txt; fi 
             
       #Running commands
       #cd .\web-app
