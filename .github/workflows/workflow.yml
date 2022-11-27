@@ -32,7 +32,7 @@ jobs:
         
       - name: running test file with coverage
         run: |
-            cd .\web-app
+            cd ./web-app
             coverage run -m ./tests/*.py
             coverage report           
 
