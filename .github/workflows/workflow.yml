@@ -33,8 +33,8 @@ jobs:
       - name: running test file with coverage
         run: |
             cd ./web-app
-            coverage run -m ./tests/*.py
-            coverage report           
+            python3 -m coverage run ./tests/*.py
+            python3 -m coverage report           
 
       - name: running test with pytest
         run: |
@@ -42,5 +42,5 @@ jobs:
     
       - name: linting file
         run: |
-            pylint $(git ls-files '*.py')
+            python3 -m pylint $(git ls-files '*.py')
 
