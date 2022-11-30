@@ -62,7 +62,10 @@ class Tests: # pragma: no cover
             assert translations_collection.find_one({"inputLanguage": input_language}) is not None
         assert translations_collection.find_one({"inputLanguage": "zh"}) is None
 
-    # TODO: testing the homepage may prove difficult because of the javascript in it
+    def test_get_empty_collection(self, mongo_client, client):
+        mongo_client.translator.translations.drop()
+        response = client.get("/translation")
+        assert b"{}" in response.data
 
     def test_get_history(self, client):
         response = client.get("/history")
