@@ -3,7 +3,7 @@ run-name: ${{ github.actor }}'s Pull Request Triggered this Workflow
 on: [pull_request]
 
 jobs:
-  coverage and pytest:
+  coverage_and_pytest:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:
