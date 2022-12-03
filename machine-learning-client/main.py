@@ -12,14 +12,32 @@ Original file is located at
 
 # ! sudo apt update && sudo apt install ffmpeg
 
+
+from gtts import gTTS
+import os
+import subprocess
+import sounddevice as sd
+from scipy.io.wavfile import write,read
+import wavio as wv
 import whisper
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
+
+
+def record_audio():
+    freq = 44100
+    duration = 8
+    recording = sd.rec(int(duration * freq), samplerate=freq, channels=1)
+    print("Recording audio for 8 seconds. Speak now.")
+    sd.wait()
+    print("Recording finished.")
+    write("translation_request.wav", freq, recording)
 
 model = whisper.load_model("base")
 
 #taking audio file and returning transcription with details
+
 def transcription(audio):
-  result = model.transcribe(audio,"translate")
+  result = model.transcribe(audio,task="translate")
   #print(result)
   return result
 
@@ -31,27 +49,75 @@ def text_translate(msg,model_tr,tokenizer,tr_lang):
 
 ckpt = 'facebook/m2m100_418M'
 model_tr = M2M100ForConditionalGeneration.from_pretrained(ckpt)
-tokenizer_fr = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="fr")
-tokenizer_es = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="es")
-tokenizer_hi = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="hi")
+toks={}
 
-# raw_msg = transcription(audio)
-# text= raw_msg["text"]
-# lang=raw_msg["language"]
+toks["fr"] = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="fr")
+toks["es"] = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="es")
+toks["hi"] = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="hi")
+toks["de"] = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="de")
+toks["jp"] = M2M100Tokenizer.from_pretrained(ckpt,src_lang="en", tr_lang="jp")
 
-# if lang != "en":
-#   print("Your message has been translated to English")
+traslationCount = 1
 
-text ="Hello! How are you?"
-num =input("To translate your message to French, press 1. For Spanish, press 2. For Hindi, press 3")
+def translate(audio, outputlang):
+    # SNEHEEL'S CODE HERE
+    raw_msg = transcription(audio)
+    text= raw_msg["text"]
 
-if num=="1":
-  texts_tr = text_translate(text,model_tr,tokenizer_fr,tr_lang="fr")
-elif num=="2":
-  texts_tr = text_translate(text,model_tr,tokenizer_es, tr_lang="es")
-elif num=="3":
-  texts_tr = text_translate(text,model_tr,tokenizer_hi, tr_lang="hi")
-else:
-  print("Invalid input, Translation could not proceed")
+    if outputlang == "en":
+      return text
+    else:
+      result = text_translate(text,model_tr,toks[outputlang], outputlang)
+      return result
 
-print(texts_tr[0])
+def speak(text, lang):
+    global traslationCount
+    gtts_object = gTTS(text=text, lang=lang, slow=False)
+
+    if os.path.exists('translations'):
+        gtts_object.save("translations/"+str(traslationCount)+".wav")
+        subprocess.call(["afplay","translations/"+str(traslationCount)+".wav"])
+        traslationCount += 1
+    else:
+        os.mkdir('translations')
+        gtts_object.save("translations/"+str(traslationCount)+".wav")
+        subprocess.call(["afplay","translations/"+str(traslationCount)+".wav"])
+        traslationCount += 1
+
+def translate_and_speak(text, lang):
+    try:
+        translated_text = translate(text, lang)
+        print(translated_text)
+    except:
+        print("An error occured while translating the text")
+        raise Exception("An error occured while translating the text")
+    try:
+        speak(translated_text, lang)
+    except:
+        print("An error occured while speaking the text, but it was translated correctly")
+        raise Exception("An error occured while speaking the text, but it was translated correctly")
+
+if __name__ =="__main__":
+  
+  while True:
+    choice=input("Enter 1 to record and translate audio, 2 to exit")
+    if choice=="1":
+      #audio_in=record_audio()
+      num =input("Press Enter for English transcription.\nTo translate your message: \n For French, press 1.\n For Spanish, press 2.\n For Hindi, press 3.\n For German, press 4.\n For Japanese, press 5")
+      if num=="":
+        tr_lang="en"
+      elif num=="1":
+        tr_lang="fr"
+      elif num=="2":
+        tr_lang="es"
+      elif num=="3":
+        tr_lang="hi"
+      elif num=="4":
+        tr_lang="de"
+      elif num=="5":
+        tr_lang="jp"
+      else:
+        print("Invalid input, Translation could not proceed")
+      translate_and_speak("machine-learning-client/translation_request.wav",tr_lang)
+    else:
+      break
