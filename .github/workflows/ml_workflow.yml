@@ -28,11 +28,22 @@ jobs:
         run: |
             cd ./machine-learning-client
             python -m coverage run ./tests/*.py
-            python -m coverage report
+            python -m coverage report > machine_coverage_results.txt
             
-
       - name: running test file with pytest
         run: |
             cd ./machine-learning-client
-            python -m pytest ./tests/*.py
+            python -m pytest ./tests/*.py > machine_test_results.txt
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: ml_coverage_results
+          path: ./machine-learning-client/machine_coverage_results.txt
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: ml_test_results
+          path: ./machine-learning-client/machine_test_results.txt
 

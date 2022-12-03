@@ -23,8 +23,6 @@ jobs:
             pip install pytest
             if [ -f ./web-app/requirements.txt ]; then pip install -r ./web-app/requirements.txt; fi 
             
-      #pip install pylint
-            
       #Running commands
       #cd .\web-app
       #.\venv\bin\activate # activate the environment assuming it exists
@@ -40,13 +38,21 @@ jobs:
       - name: running test with pytest
         run: |
             cd ./web-app
-            python3 -m pytest ./tests/*.py
+            python3 -m pytest ./tests/*.py > app_test_results.txt
+
+      #if was useful/required, could separate each upload from each python version to different artifact
 
       - name: Upload coverage results
         uses: actions/upload-artifact@v3
         with: 
           name: app_coverage_results
           path: ./web-app/app_coverage_results.txt
+
+      - name: Upload Test Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: app_test_results
+          path: ./web-app/app_test_results.txt
 
     
 
