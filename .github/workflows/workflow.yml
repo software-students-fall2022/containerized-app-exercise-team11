@@ -3,7 +3,7 @@ run-name: ${{ github.actor }}'s Pull Request Triggered this Workflow
 on: [pull_request]
 
 jobs:
-  building:
+  coverage and pytest:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     strategy:
@@ -41,8 +41,10 @@ jobs:
         run: |
             cd ./web-app
             python3 -m pytest ./tests/*.py
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@v3
+        with: 
+
     
-      #- name: linting file
-      #  run: |
-      #      python3 -m pylint $(git ls-files '*.py')
 
