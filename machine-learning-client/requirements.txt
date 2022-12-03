@@ -1,0 +1,9 @@
+git+https://github.com/openai/whisper.git 
+gtts
+scipy
+transformers
+sentencepiece
+setuptools
+cffi
+sounddevice
+wavio
