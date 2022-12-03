@@ -34,8 +34,8 @@ jobs:
       - name: running test file with coverage
         run: |
             cd ./web-app
-            python3 -m coverage run ./tests/*.py
-            python3 -m coverage report           
+            python3 -m coverage run ./tests/*.py 
+            python3 -m coverage report > ./web-app/output/app_coverage_results.txt          
 
       - name: running test with pytest
         run: |
@@ -45,6 +45,8 @@ jobs:
       - name: Upload coverage results
         uses: actions/upload-artifact@v3
         with: 
+          name: app_coverage_results.txt
+          path: ./web-app/output/app_coverage_results.txt
 
     
 
