@@ -7,3 +7,4 @@ setuptools
 cffi
 sounddevice
 wavio
+pymongo
