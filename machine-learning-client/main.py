@@ -12,7 +12,9 @@ from scipy.io.wavfile import write,read
 import wavio as wv
 import whisper
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
+import pymongo
 
+client = pymongo.MongoClient('mongodb://localhost:27017')
 
 def record_audio():
     freq = 44100
@@ -78,8 +80,28 @@ def speak(text, lang):
 
 def translate_and_speak(text, lang):
     try:
+        # load audio and pad/trim it to fit 30 seconds
+        audiox = whisper.load_audio(text)
+        audiox = whisper.pad_or_trim(audiox)
+
+        # make log-Mel spectrogram and move to the same device as the model
+        mel = whisper.log_mel_spectrogram(audiox).to(model.device)
+
+        # detect the spoken language
+        _, probs = model.detect_language(mel)
+        in_lang=max(probs, key=probs.get)
+
+        # decode the audio
+        options = whisper.DecodingOptions()
+        result_in = whisper.decode(model, mel, options)
+        
         translated_text = translate(text, lang)
         print(translated_text)
+        client.translator.translations.insert({
+              "inputLanguage": in_lang,
+              "inputText": result_in.text,
+              "outputLanguage": lang,
+              "outputText": translated_text})
     except:
         print("An error occured while translating the text")
         raise Exception("An error occured while translating the text")
