@@ -1,13 +1,15 @@
 from flask import Flask, render_template, jsonify
 from flaskr.db import get_translations_collection
 from pymongo import MongoClient
+import os
 
 def create_app(test_config=None):
     app = Flask(__name__)
     
     if (test_config == None):
+        conn_str = os.getenv('DB_URL', 'mongodb://localhost:27017')
         app.config.from_mapping(
-            MONGO_CLIENT=MongoClient('mongodb://localhost:27017')
+            MONGO_CLIENT=MongoClient(conn_str)
         )
     else:
         app.config.from_mapping(test_config)
