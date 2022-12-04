@@ -46,4 +46,3 @@ jobs:
         with:
           name: ml_test_results
           path: ./machine-learning-client/machine_test_results.txt
-

@@ -1,4 +1,4 @@
-name: containeried-app-translation
+name: Web App Workflow
 run-name: ${{ github.actor }}'s Pull Request Triggered this Workflow
 on: [pull_request]
 
@@ -53,6 +53,3 @@ jobs:
         with:
           name: app_test_results
           path: ./web-app/app_test_results.txt
-
-    
-
