@@ -28,13 +28,13 @@ jobs:
       - name: checking coverage of unit tests
         run: |
             cd ./machine-learning-client
-            python -m coverage run ./tests/*.py
+            coverage run -m pytest ./tests/test.py
             python -m coverage report > machine_coverage_results.txt
             
       - name: running test file with pytest
         run: |
             cd ./machine-learning-client
-            python -m pytest ./tests/*.py > machine_test_results.txt
+            python -m pytest ./tests/test.py > machine_test_results.txt
 
       - name: Upload coverage results
         uses: actions/upload-artifact@v3
