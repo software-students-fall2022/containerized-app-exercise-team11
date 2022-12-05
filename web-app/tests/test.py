@@ -27,7 +27,8 @@ class Tests: # pragma: no cover
         mock_translations_collection.insert_one({
             "inputLanguage": "ja",
             "inputText": "ごめんなさい。",
-            "outputText": "I am sorry."
+            "outputText": "I am sorry.",
+            "outputLanguage": "en"
         })
         yield mock_client
         mock_translations_collection.drop()
