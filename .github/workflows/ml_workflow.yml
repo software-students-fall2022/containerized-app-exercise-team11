@@ -23,6 +23,7 @@ jobs:
             python -m pip install --upgrade pip
             pip install pytest
             sudo apt-get install portaudio19-dev
+            sudo apt-get install ffmpeg
             if [ -f ./machine-learning-client/requirements.txt ]; then pip install -r ./machine-learning-client/requirements.txt; fi 
 
       - name: checking coverage of unit tests
