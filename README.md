@@ -36,7 +36,7 @@ After your virtual environment has been activated, install dependencies needed f
 pip install -r requirements.txt
 ```
 ### Step 3: Start Docker Containers
-In a seperate terminal window, start the docker containers for the web app and MongoDB database by using:
+In a seperate terminal window, in the root directory of the project, start the docker containers for the web app and MongoDB database by using:
 ```
 docker compose up
 ```
