@@ -3,6 +3,8 @@
 
 ![BadgeWebClientTest](https://github.com/software-students-fall2022/containerized-app-exercise-team11/actions/workflows/workflow.yml/badge.svg) ![BadgeMLTest](https://github.com/software-students-fall2022/containerized-app-exercise-team11/actions/workflows/ml_workflow.yml/badge.svg)
 
+This project will allow the user to have their speech translated in near real-time. The user speaks into their microphone, their speech is transcribed into text, and that text is translated. The translation is then available for the user to view through the web app.
+
 **Team 11 Members:**
 [Michael Ma](https://github.com/mma01us)
 [David Adler](https://github.com/dov212)
