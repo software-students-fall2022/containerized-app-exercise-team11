@@ -7,7 +7,7 @@
 This project will allow the user to have their speech translated in near real-time. The user speaks into their microphone, their speech is transcribed into text, and that text is translated. The translation is then available for the user to view through the web app.
 
 ## Instructions for Use
-Please run the below commands in a terminal on your system to install and run these programs. Before you begin, please [ensure Docker is installed on your system](https://docs.docker.com/engine/install/).
+Please run the below commands in a terminal on your system to install and run these programs. Before you begin, please [ensure Docker is installed on your system](https://docs.docker.com/engine/install/). Also, please [ensure ffmpeg is installed on your system](https://ffmpeg.org/download.html).
 
 ### Step 1: Clone Repository
 First, clone this repository onto your system:
