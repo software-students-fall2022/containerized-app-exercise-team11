@@ -29,16 +29,11 @@ jobs:
       #coverage run -m .\tests\*.py
       #coverage report
         
-      - name: running test file with coverage
+      - name: Run Unit Tests
         run: |
             cd ./web-app
-            python3 -m coverage run ./tests/*.py 
+            python3 -m coverage run ./tests/*.py > app_test_results.txt
             python3 -m coverage report > app_coverage_results.txt          
-
-      - name: running test with pytest
-        run: |
-            cd ./web-app
-            python3 -m pytest ./tests/*.py > app_test_results.txt
 
       #if was useful/required, could separate each upload from each python version to different artifact
 
