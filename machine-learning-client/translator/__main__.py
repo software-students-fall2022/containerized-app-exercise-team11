@@ -46,7 +46,7 @@ if __name__ == '__main__':
     else:
       break
     try:
-      translation = functions.transcribe_and_translate(audio_path, 'fr', model_tr, toks)
+      translation = functions.transcribe_and_translate(audio_path, tr_lang, model_tr, toks)
       functions.insert_translation_to_db(client, translation)
     except Exception as e:
       print('Execution unsuccessful')
