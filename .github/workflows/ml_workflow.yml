@@ -26,13 +26,13 @@ jobs:
             sudo apt-get install ffmpeg
             if [ -f ./machine-learning-client/requirements.txt ]; then pip install -r ./machine-learning-client/requirements.txt; fi 
 
-      - name: Run Unit Tests
+      - name: Run Unit Tests & Coverage Analysis
         run: |
             cd ./machine-learning-client
             coverage run -m pytest ./tests/test.py > machine_test_results.txt
             python -m coverage report > machine_coverage_results.txt
             
-      - name: Upload coverage results
+      - name: Upload Coverage Results
         uses: actions/upload-artifact@v3
         with:
           name: ml_coverage_results
