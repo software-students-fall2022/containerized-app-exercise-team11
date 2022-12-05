@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Translator - History</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container" style="padding-top: 3%; padding-bottom: 3%">
+        <div class="row">
+            <h1>Translation History</h1>
+            <p>This page will not update in real time. Please refresh to see the latest translations.</p>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Input Language</th>
+                        <th scope="col">Input Text</th>
+                        <th scope="col">Output Text</th>
+                        <th scope="col">Output Language</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for translation in history %}
+                    <tr>
+                        <td>{{ translation.inputLanguage }}</td>
+                        <td>{{ translation.inputText }}</td>
+                        <td>{{ translation.outputText }}</td>
+                        <td>{{ translation.outputLanguage }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

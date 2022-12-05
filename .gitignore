@@ -1,3 +1,6 @@
+# No generated .wav files
+*.wav
+
 # mac junk
 .DS_Store
 
