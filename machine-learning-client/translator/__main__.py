@@ -3,7 +3,7 @@ import os
 import translator.functions as functions
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
   # initialize
   print('Initializing translator, please wait...')
   client = pymongo.MongoClient('mongodb://localhost:27017')
